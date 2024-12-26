@@ -1,3 +1,4 @@
+import sys
 import pygame
 from constants import *
 from player import Player
@@ -18,9 +19,9 @@ def main():
   # create groups for player
   updatable = pygame.sprite.Group()
   drawable = pygame.sprite.Group()
-  asteroids = pygame.sprite.Group()
+  asteroids = pygame.sprite.Group() 
 
-  Player.containers = (updatable,drawable,asteroids)
+  Player.containers = (updatable,drawable)
 
   Asteroid.containers = (updatable, drawable, asteroids)
   AsteroidField.containers = updatable
@@ -33,12 +34,18 @@ def main():
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         return
-      
-    screen.fill("black")
 
     # calls on player objects that are updatable / drawable 
     for sprite in updatable:
       sprite.update(dt)
+
+    for asteroid in asteroids:
+      if asteroid.collides_with(player):
+        print("Game over!")
+        sys.exit()
+
+    screen.fill("black")
+
     for sprite in drawable:
       sprite.draw(screen)
 
