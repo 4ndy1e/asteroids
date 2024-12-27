@@ -17,7 +17,6 @@ class Asteroid(CircleShape):
     self.kill()
 
     if self.radius <= ASTEROID_MIN_RADIUS:
-      print("small radius")
       return
     else:
       # spawn two asteroids
